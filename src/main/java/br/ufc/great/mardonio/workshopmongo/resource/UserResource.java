@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.ufc.great.mardonio.workshopmongo.domain.Post;
 import br.ufc.great.mardonio.workshopmongo.domain.User;
 import br.ufc.great.mardonio.workshopmongo.dto.UserDTO;
 import br.ufc.great.mardonio.workshopmongo.service.UserService;
@@ -36,6 +37,12 @@ public class UserResource {
 		User user = userService.findById(id);
 		UserDTO userDto = new UserDTO(user);
 		return ResponseEntity.ok().body(userDto);
+	}
+	
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+		User user = userService.findById(id);
+		return ResponseEntity.ok().body(user.getPosts());
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
